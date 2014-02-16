@@ -2080,6 +2080,9 @@ window.typejax = (function($){
           "subsubsection*":           "section",
           "tableofcontents":          {mode: "block", args: ["[]"], outs: ["par"]},
           "textbf":                   {mode: "inline", args: ["{}"]},
+          "cite":                   {mode: "inline", args: ["{}"]},
+          "label":                   {mode: "inline", args: ["{}"]},
+          "ref":                   {mode: "inline", args: ["{}"]},
           "thanks":                   {mode: "inline", args: ["{}"]},
           "title":                    {mode: "inline", args: ["[]", "{}"]},
           "usepackage":               {mode: "inline", args: ["[]", "{}"]}
@@ -2087,6 +2090,7 @@ window.typejax = (function($){
         environment: {
           "bmath":                    {mode: "block"},
           "center":                   {mode: "main", args: ["||"], outs: ["par", "center"]},
+          "abstract":                 {mode: "block", args: ["||"]},
           "enumerate":                {mode: "block", args: ["[]", "||"]},
           "item":                     {mode: "main", args: ["<>", "||"]},
           "itemize":                  {mode: "block", args: ["[]", "||"]},
@@ -2268,6 +2272,27 @@ window.typejax = (function($){
         cmdTextbf: function(node) {
           if (node.argarray[0].childs[0]) {
             node.value = "<b>" + node.argarray[0].childs[0].value + "</b>";
+            node.childs = [];
+          }
+        },
+
+        cmdCite : function(node) {
+          if (node.argarray[0].childs[0]) {
+            node.value = "[<i>" + node.argarray[0].childs[0].value + "</i>]";
+            node.childs = [];
+          }
+        },
+
+        cmdLabel : function(node) {
+          if (node.argarray[0].childs[0]) {
+            node.value = "<a name=\"" + node.argarray[0].childs[0].value + "\"/>";
+            node.childs = [];
+          }
+        },
+
+        cmdRef : function(node) {
+          if (node.argarray[0].childs[0]) {
+            node.value = "<a href=\"#" + node.argarray[0].childs[0].value + "\">^</a>";
             node.childs = [];
           }
         },
